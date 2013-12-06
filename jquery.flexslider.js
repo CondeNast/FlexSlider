@@ -1019,6 +1019,17 @@
       slider.vars.removed(slider);
     }
 
+    slider.setOpts = function(opts) {
+      for (var opt in opts) {
+        slider.vars[opt] = opts[opt];
+      }
+      slider.setup();
+    }
+
+    slider.getOpts = function() {
+      return slider.vars;
+    }
+
     //FlexSlider: Initialize
     methods.init();
   }
