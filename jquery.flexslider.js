@@ -978,10 +978,14 @@
       if (vertical && reverse) {
         (pos !== undefined) ? slider.slides.eq(slider.count - pos).after($obj) : slider.container.prepend($obj);
       } else {
+        console.log("obj: ");
+        console.log($obj);
+        console.log("pos:" + pos);
         (pos !== undefined) ? slider.slides.eq(pos).before($obj) : slider.container.append($obj);
       }
 
       // update currentSlide, animatingTo, controlNav, and directionNav
+      //slider.currentSlide += 1;
       slider.update(pos, "add");
 
       // update slider.slides
@@ -992,7 +996,7 @@
       //FlexSlider: added() Callback
       slider.vars.added(slider);
     }
-    slider.removeSlide = function(obj) {
+    slider.removeSlide = function(obj, isReversing) {
       var pos = (isNaN(obj)) ? slider.slides.index($(obj)) : obj;
 
       // update count
@@ -1007,6 +1011,12 @@
       }
 
       // update currentSlide, animatingTo, controlNav, and directionNav
+      // CHECK DIR
+      if (isReversing) {
+        slider.currentSlide += 1;
+      } else {
+        slider.currentSlide -= 1;
+      }
       slider.doMath();
       slider.update(pos, "remove");
 
