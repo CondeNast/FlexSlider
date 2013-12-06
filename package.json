@@ -1,31 +1,31 @@
 {
-    "name" : "flexslider",
-    "version" : "0.0.0",
-    "description" : "An awesome, fully responsive jQuery slider plugin.",
-    "main" : "jquery.flexslider.js",
-    "scripts" : {
-    },
-    "repository" : {
-      "type" : "git",
-      "url" : "git://github.com/CondeNase/flexslider.git"
-    },
-    "homepage" : "https://github.com/CondeNase/flexslider",
-    "dependencies" : {
-    },
-    "devDependencies" : {
-      "nave": "~0.4.3",
-      "tape": "~1.0.4",
-      "tap": "~0.4.3"
-    },
-    "keywords": [] ,
-    "author" : {
-      "name" : "Thorsten Lorenz",
-      "email" : "thlorenz@gmx.de",
-      "url" : "http://thlorenz.com"
-    },
-    "license" : {
-      "type": "MIT",
-      "url": "https://github.com/CondeNase/flexslider/blob/master/LICENSE"
-    },
-    "engine" : { "node" : ">=0.6" }
+  "name": "flexslider",
+  "version": "0.1.0",
+  "description": "An awesome, fully responsive jQuery slider plugin.",
+  "main": "jquery.flexslider.js",
+  "scripts": {},
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/CondeNase/flexslider.git"
+  },
+  "homepage": "https://github.com/CondeNase/flexslider",
+  "dependencies": {},
+  "devDependencies": {
+    "nave": "~0.4.3",
+    "tape": "~1.0.4",
+    "tap": "~0.4.3"
+  },
+  "keywords": [],
+  "author": {
+    "name": "Thorsten Lorenz",
+    "email": "thlorenz@gmx.de",
+    "url": "http://thlorenz.com"
+  },
+  "license": {
+    "type": "MIT",
+    "url": "https://github.com/CondeNase/flexslider/blob/master/LICENSE"
+  },
+  "engine": {
+    "node": ">=0.6"
+  }
 }
