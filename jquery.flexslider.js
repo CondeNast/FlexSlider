@@ -443,7 +443,9 @@
                   if (!slider.vars.animationLoop) {
                     dx = dx/((slider.currentSlide === 0 && dx < 0 || slider.currentSlide === slider.last && dx > 0) ? (Math.abs(dx)/cwidth+2) : 1);
                   }
-                  slider.setProps(offset + dx, "setTouch");
+                  if (!snapOnSwipe) {
+                    slider.setProps(offset + dx, "setTouch");
+                  }
                 }
               }
             }
@@ -452,7 +454,7 @@
               // finish the touch by undoing the touch session
               el.removeEventListener('touchmove', onTouchMove, false);
 
-              if (slider.animatingTo === slider.currentSlide && !scrolling && !(dx === null)) {
+              if (slider.animatingTo === slider.currentSlide && !scrolling && !(dx === null) && !slider.vars.snapOnSwipe) {
                 var updateDx = (reverse) ? -dx : dx,
                     target = (updateDx > 0) ? slider.getTarget('next') : slider.getTarget('prev');
 
@@ -461,6 +463,13 @@
                 } else {
                   if (!fade) slider.flexAnimate(slider.currentSlide, slider.vars.pauseOnAction, true);
                 }
+              } else if (slider.vars.snapOnSwipe) {
+                var updateDx = (reverse) ? -dx : dx;
+                if (updateDx < 0) {
+                  slider.flexAnimate(slider.getTarget('previous'));
+                } else if (updateDx > 0) {
+                  slider.flexAnimate(slider.getTarget('next'));
+                } 
               }
               el.removeEventListener('touchend', onTouchEnd, false);
 
@@ -1119,7 +1128,8 @@
 
     // Custom Options
     resizeOnFocusChange: true,
-    runSetupOnAddOrRemove: true
+    runSetupOnAddOrRemove: true,
+    snapOnSwipe: false
   }
 
 
