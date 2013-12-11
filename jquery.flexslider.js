@@ -141,8 +141,11 @@
         if (touch && slider.vars.touch) methods.touch();
 
         // FADE&&SMOOTHHEIGHT || SLIDE:
-        if (!fade || (fade && slider.vars.smoothHeight)) $(window).bind("resize orientationchange focus", methods.resize);
-
+        if (slider.vars.resizeOnFocusChange) {
+          if (!fade || (fade && slider.vars.smoothHeight)) $(window).bind("resize orientationchange focus", methods.resize);
+        } else {
+          if (!fade || (fade && slider.vars.smoothHeight)) $(window).bind("resize orientationchange", methods.resize);
+        }
         slider.find("img").attr("draggable", "false");
 
         // API: start() Callback
@@ -877,7 +880,7 @@
           }, (type === "init") ? 100 : 0);
         } else {
           slider.container.width((slider.count + slider.cloneCount) * 200 + "%");
-          slider.setProps(sliderOffset * slider.computedW, "init");
+          slider.setProps(sliderOffset * (slider.computedW+slider.vars.itemMargin), "init");
           setTimeout(function(){
             slider.doMath();
             slider.newSlides.css({"width": slider.computedW, "float": "left", "display": "block"});
@@ -978,9 +981,6 @@
       if (vertical && reverse) {
         (pos !== undefined) ? slider.slides.eq(slider.count - pos).after($obj) : slider.container.prepend($obj);
       } else {
-        console.log("obj: ");
-        console.log($obj);
-        console.log("pos:" + pos);
         (pos !== undefined) ? slider.slides.eq(pos).before($obj) : slider.container.append($obj);
       }
 
@@ -991,7 +991,9 @@
       // update slider.slides
       slider.slides = $(slider.vars.selector + ':not(.clone)', slider);
       // re-setup the slider to accomdate new slide
-      slider.setup();
+      if (slider.vars.runSetupOnAddOrRemove) {
+        slider.setup();
+      }
 
       //FlexSlider: added() Callback
       slider.vars.added(slider);
@@ -1023,7 +1025,9 @@
       // update slider.slides
       slider.slides = $(slider.vars.selector + ':not(.clone)', slider);
       // re-setup the slider to accomdate new slide
-      slider.setup();
+      if (slider.vars.runSetupOnAddOrRemove) {
+        slider.setup();
+      }
 
       // FlexSlider: removed() Callback
       slider.vars.removed(slider);
@@ -1111,7 +1115,11 @@
     after: function(){},            //Callback: function(slider) - Fires after each slider animation completes
     end: function(){},              //Callback: function(slider) - Fires when the slider reaches the last slide (asynchronous)
     added: function(){},            //{NEW} Callback: function(slider) - Fires after a slide is added
-    removed: function(){}           //{NEW} Callback: function(slider) - Fires after a slide is removed
+    removed: function(){},           //{NEW} Callback: function(slider) - Fires after a slide is removed
+
+    // Custom Options
+    resizeOnFocusChange: true,
+    runSetupOnAddOrRemove: true
   }
 
 
