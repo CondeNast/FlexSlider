@@ -465,11 +465,11 @@
                 }
               } else if (slider.vars.snapOnSwipe) {
                 var updateDx = (reverse) ? -dx : dx;
-                if (updateDx < 0) {
+                if (updateDx < -(slider.vars.snapOnSwipeOffset)) {
                   slider.flexAnimate(slider.getTarget('previous'));
-                } else if (updateDx > 0) {
+                } else if (updateDx > slider.vars.snapOnSwipeOffset) {
                   slider.flexAnimate(slider.getTarget('next'));
-                } 
+                }
               }
               el.removeEventListener('touchend', onTouchEnd, false);
 
@@ -1129,7 +1129,8 @@
     // Custom Options
     resizeOnFocusChange: true,
     runSetupOnAddOrRemove: true,
-    snapOnSwipe: false
+    snapOnSwipe: false,
+    snapOnSwipeOffset: 50
   }
 
 
